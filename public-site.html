@@ -82,6 +82,7 @@
     width:52px;height:52px;border-radius:50%;
     background:var(--federal-blue);
     display:flex;align-items:center;justify-content:center;
+    color:#EAEDDF;font-family:'Archivo',sans-serif;font-weight:900;font-size:15px;
     border:2px solid var(--federal-blue-dk);
     flex-shrink:0;
   }
@@ -97,7 +98,7 @@
   }
   .nav-btn{
     background:none;border:none;border-bottom:3px solid transparent;
-    padding:12px 14px;font-size:13px;font-weight:600;
+    padding:14px 14px;font-size:13px;font-weight:600;
     font-family:'Archivo',sans-serif;text-transform:uppercase;letter-spacing:0.03em;
     color:var(--ink-soft);cursor:pointer;white-space:nowrap;
     transition:color .15s, border-color .15s;
@@ -105,6 +106,13 @@
   .nav-btn:hover{color:var(--ink);}
   .nav-btn.active{color:var(--federal-blue);border-bottom-color:var(--stamp-red);}
   .nav-btn:focus-visible{outline:2px solid var(--federal-blue);outline-offset:2px;}
+  .nav-label-short{display:none;}
+  @media (max-width:640px){
+    .site-nav{overflow-x:visible;padding:0 8px;gap:0;}
+    .nav-btn{flex:1;padding:14px 4px;font-size:11px;letter-spacing:0.02em;}
+    .nav-label-full{display:none;}
+    .nav-label-short{display:inline;}
+  }
 
   /* ---------- layout ---------- */
   main{max-width:1180px;margin:0 auto;padding:32px 24px 64px;}
@@ -177,6 +185,9 @@
   .gauge-seg{flex:1;height:14px;border-radius:2px;background:var(--gray-soft);position:relative;}
   .gauge-seg.on{box-shadow:inset 0 0 0 2px var(--federal-blue-dk);}
   .gauge-labels{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;}
+  @media (max-width:520px){
+    .gauge-labels{flex-wrap:wrap;justify-content:flex-start;gap:5px 12px;font-size:9px;}
+  }
   .gauge-caption{font-size:14px;color:var(--ink);line-height:1.5;margin-bottom:10px;}
   .gauge-meta{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:0.04em;}
 
@@ -204,6 +215,16 @@
 
   /* ---------- watch table ---------- */
   .table-wrap{overflow-x:auto;background:var(--paper-card);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);}
+  .watch-cards-mobile{display:none;}
+  .watch-mobile-card{background:var(--paper-card);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);padding:14px 16px;margin-bottom:10px;}
+  .watch-mobile-card.clickable-row{cursor:pointer;}
+  .watch-mobile-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .watch-mobile-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin-bottom:10px;}
+  .watch-mobile-badges{display:flex;gap:6px;flex-wrap:wrap;}
+  @media (max-width:640px){
+    .table-wrap{display:none;}
+    .watch-cards-mobile{display:block;}
+  }
   table.public-table{width:100%;border-collapse:collapse;min-width:680px;}
   table.public-table th{
     text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.06em;
@@ -277,9 +298,9 @@
   .filter-group-body .filter-check:first-child{margin-top:8px;}
   .filter-check{
     display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);
-    padding:4px 0;cursor:pointer;line-height:1.4;
+    padding:7px 0;cursor:pointer;line-height:1.4;
   }
-  .filter-check input{width:14px;height:14px;accent-color:var(--federal-blue);flex-shrink:0;cursor:pointer;}
+  .filter-check input{width:18px;height:18px;accent-color:var(--federal-blue);flex-shrink:0;cursor:pointer;}
   .archive-clear-btn{
     width:100%;background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;
@@ -342,6 +363,10 @@
     font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);background:var(--paper);
   }
   .form-actions{display:flex;gap:12px;padding:22px 26px;flex-wrap:wrap;}
+  @media (max-width:520px){
+    .form-actions{flex-direction:column;}
+    .form-actions .btn{width:100%;text-align:center;padding:13px 20px;}
+  }
   .btn{
     font-family:'Archivo',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:0.02em;
     padding:11px 20px;border-radius:2px;cursor:pointer;border:1px solid transparent;text-transform:uppercase;
@@ -441,16 +466,7 @@
   <header class="site-header">
     <div class="header-row">
       <div class="brand">
-        <div class="seal">
-          <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
-            <circle cx="32" cy="32" r="30" fill="none" stroke="#7ba3c0" stroke-width="1"/>
-            <circle cx="32" cy="32" r="26" fill="none" stroke="#4e7a9e" stroke-width="1"/>
-            <path d="M32 16 L40 26 L52 30 L40 32 L32 46 L24 32 L12 30 L24 26 Z" fill="none" stroke="#a8cce0" stroke-width="1.1"/>
-            <path d="M32 20 C26 28 22 30 14 30 C22 33 27 38 32 45 C37 38 42 33 50 30 C42 30 38 28 32 20 Z" fill="#162c40" stroke="#7aadc8" stroke-width="0.8"/>
-            <path d="M18 44 C24 50 40 50 46 44" fill="none" stroke="#7ba3c0" stroke-width="0.9"/>
-            <circle cx="32" cy="30" r="2" fill="#a8cce0"/>
-          </svg>
-        </div>
+        <div class="seal">MCID</div>
         <div class="brand-text">
           <div class="brand-name">Meme Creature Intelligence Division</div>
           <div class="brand-sub">Office of Signals and Circulation</div>
@@ -462,11 +478,11 @@
       </div>
     </div>
     <nav class="site-nav">
-      <button class="nav-btn active" data-view="home">Home</button>
-      <button class="nav-btn" data-view="archive">Reference Archive</button>
-      <button class="nav-btn" data-view="report">Report a Sighting</button>
-      <button class="nav-btn" data-view="files">Creature Files</button>
-      <button class="nav-btn" data-view="about">About MCID</button>
+      <button class="nav-btn active" data-view="home"><span class="nav-label-full">Home</span><span class="nav-label-short">Home</span></button>
+      <button class="nav-btn" data-view="archive"><span class="nav-label-full">Reference Archive</span><span class="nav-label-short">Archive</span></button>
+      <button class="nav-btn" data-view="report"><span class="nav-label-full">Report a Sighting</span><span class="nav-label-short">Report</span></button>
+      <button class="nav-btn" data-view="files"><span class="nav-label-full">Creature Files</span><span class="nav-label-short">Files</span></button>
+      <button class="nav-btn" data-view="about"><span class="nav-label-full">About MCID</span><span class="nav-label-short">About</span></button>
     </nav>
   </header>
 
@@ -610,6 +626,39 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="watch-cards-mobile">
+          <div class="watch-mobile-card clickable-row" data-goto="file-cowboyfrog" tabindex="0" role="button">
+            <div class="watch-mobile-top"><div class="avatar">TCF</div><div><div class="creature-name">Tiny Cowboy Frog</div><div class="creature-latin">Ranidae cowboyensis minimus</div></div></div>
+            <div class="watch-mobile-meta"><span>TikTok</span><span>·</span><span class="growth-up">+1,240%</span><span>·</span><span>4m ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill red">Outbreak</span><span class="pill gray">Least Concern</span></div>
+          </div>
+          <div class="watch-mobile-card clickable-row" data-goto="file-moodeng" tabindex="0" role="button">
+            <div class="watch-mobile-top"><div class="avatar">MD</div><div><div class="creature-name">Moo Deng</div><div class="creature-latin">Hippopotamus liberiensis celebris</div></div></div>
+            <div class="watch-mobile-meta"><span>Facebook</span><span>·</span><span class="growth-up">+12%</span><span>·</span><span>22m ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill amber">Endemic</span><span class="pill amber">Vulnerable</span></div>
+          </div>
+          <div class="watch-mobile-card">
+            <div class="watch-mobile-top"><div class="avatar">PR</div><div><div class="creature-name">Pizza Rat</div><div class="creature-latin">Rattus prandialis</div></div></div>
+            <div class="watch-mobile-meta"><span>YouTube</span><span>·</span><span class="growth-down">−3%</span><span>·</span><span>3h ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill green">Contained</span><span class="pill amber">Near Threatened</span></div>
+          </div>
+          <div class="watch-mobile-card">
+            <div class="watch-mobile-top"><div class="avatar">J</div><div><div class="creature-name">Jimothy</div><div class="creature-latin">incertae sedis</div></div></div>
+            <div class="watch-mobile-meta"><span>Reddit</span><span>·</span><span class="growth-up">+140%</span><span>·</span><span>51m ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill amber">Spreading</span><span class="pill gray">Data Deficient</span></div>
+          </div>
+          <div class="watch-mobile-card">
+            <div class="watch-mobile-top"><div class="avatar">CA</div><div><div class="creature-name">The Capybara At The Airport</div><div class="creature-latin">Hydrochoerus terminalis</div></div></div>
+            <div class="watch-mobile-meta"><span>Instagram</span><span>·</span><span class="growth-up">+61%</span><span>·</span><span>1h ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill gray">Watch</span><span class="pill gray">Least Concern</span></div>
+          </div>
+          <div class="watch-mobile-card">
+            <div class="watch-mobile-top"><div class="avatar">LC</div><div><div class="creature-name">Long Cat Of Osaka</div><div class="creature-latin">Felis longus</div></div></div>
+            <div class="watch-mobile-meta"><span>X</span><span>·</span><span class="growth-down">−44%</span><span>·</span><span>9h ago</span></div>
+            <div class="watch-mobile-badges"><span class="pill green">Declining</span><span class="pill mauve">Critically Endangered</span></div>
+          </div>
         </div>
       </div>
     </section>
